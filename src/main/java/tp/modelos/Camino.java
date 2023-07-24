@@ -7,6 +7,7 @@ public class Camino {
 	private Integer tiempoTransito;
 	private Integer capacidadMaxima;
 	private EnumOperativa operativa;
+	private Integer queOnda;
 	
 	public Camino() {
 		
