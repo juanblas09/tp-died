@@ -7,26 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.database.interfaces.SucursalInterface;
 import tp.modelos.EnumOperativa;
-import tp.modelos.Sucursal;
+import tp.modelos.Camino;
 
-public class SucursalDao implements SucursalInterface{
-
-	public Sucursal buscarPorID(Integer id) {
-		Sucursal resultado = new Sucursal();
+public class CaminoDao {
+    public Camino buscarPorID(Integer id) {
+		Camino resultado = new Camino();
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-			pstm = conn.prepareStatement("SELECT * FROM sucursal WHERE id_sucursal = ?");
+			pstm = conn.prepareStatement("SELECT * FROM camino WHERE id_camino = ?");
 			pstm.setInt(1, id);
 			rs = pstm.executeQuery();
 			if(rs.next()){
-				resultado.setId(rs.getInt("id_sucursal"));
-				resultado.setNombre(rs.getString("nombre"));
-				resultado.setHorarioApertura(rs.getInt("horarioapertura"));
-				resultado.setHorarioCierre(rs.getInt("horariocierre"));
+				resultado.setId(rs.getInt("id_camino"));
+				resultado.setSucursalOrigen(rs.getInt("sucursalOrigen"));
+                resultado.setSucursalDestino(rs.getInt("sucursalDestino"));
+                resultado.setTiempoTransito(rs.getInt("tiempoTransito"));
+                resultado.setCapacidadMaxima(rs.getInt("capacidadMaxima"));
 				if(rs.getString("operativa").equals("OPERATIVA")){
 					resultado.setOperativa(EnumOperativa.OPERATIVA);
 				}else if(rs.getString("operativa").equals("NO_OPERATIVA")){
@@ -51,7 +50,7 @@ public class SucursalDao implements SucursalInterface{
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("DELETE FROM sucursal WHERE id_sucursal = ?");
+			pstm = conn.prepareStatement("DELETE FROM camino WHERE id_camino = ?");
 			pstm.setInt(1,id);
 
 			pstm.executeUpdate();
@@ -67,27 +66,28 @@ public class SucursalDao implements SucursalInterface{
 		}
 	}
 
-	public List<Sucursal> buscarTodos() {
-		List<Sucursal> resultado = new ArrayList<Sucursal>();
+	public List<Camino> buscarTodos() {
+		List<Camino> resultado = new ArrayList<Camino>();
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-			pstm = conn.prepareStatement("SELECT * FROM sucursal");
+			pstm = conn.prepareStatement("SELECT * FROM camino");
 			rs = pstm.executeQuery();
 			while(rs.next()){
-				Sucursal s = new Sucursal();
-				s.setId(rs.getInt("id_sucursal"));
-				s.setNombre(rs.getString("nombre"));
-				s.setHorarioApertura(rs.getInt("horarioapertura"));
-				s.setHorarioCierre(rs.getInt("horariocierre"));
+				Camino c = new Camino();
+				c.setId(rs.getInt("id_camino"));
+				c.setSucursalOrigen(rs.getInt("sucursalOrigen"));
+                c.setSucursalDestino(rs.getInt("sucursalDestino"));
+                c.setTiempoTransito(rs.getInt("tiempoTransito"));
+                c.setCapacidadMaxima(rs.getInt("capacidadMaxima"));
 				if(rs.getString("operativa").equals("OPERATIVA")){
-					s.setOperativa(EnumOperativa.OPERATIVA);
+					c.setOperativa(EnumOperativa.OPERATIVA);
 				}else if(rs.getString("operativa").equals("NO_OPERATIVA")){
-					s.setOperativa(EnumOperativa.NO_OPERATIVA);
+					c.setOperativa(EnumOperativa.NO_OPERATIVA);
 				}
 
-				resultado.add(s);
+				resultado.add(c);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -103,18 +103,19 @@ public class SucursalDao implements SucursalInterface{
 		return resultado;
 	}
 
-	public Sucursal guardar(Sucursal sucursal) {
+	public Camino guardar(Camino camino) {
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("INSERT INTO sucursal (nombre, horarioapertura, horariocierre, operativa) VALUES (?, ?, ?, ?)");
-			pstm.setString(1,sucursal.getNombre());
-			pstm.setInt(2, sucursal.getHorarioApertura());
-			pstm.setInt(3, sucursal.getHorarioCierre());
-			if(sucursal.getOperativa().equals(EnumOperativa.OPERATIVA)){
-				pstm.setString(4, "OPERATIVA");
-			}else if(sucursal.getOperativa().equals(EnumOperativa.NO_OPERATIVA)){
-				pstm.setString(4, "NO_OPERATIVA");
+			pstm = conn.prepareStatement("INSERT INTO camino (sucursalOrigen, sucursalDestino, tiempoTransito, capacidadMaxima, operativa) VALUES (?, ?, ?, ?, ?)");
+			pstm.setInt(1,camino.getSucursalOrigen());
+			pstm.setInt(2, camino.getSucursalDestino());
+			pstm.setInt(3, camino.getTiempoTransito());
+            pstm.setInt(4, camino.getCapacidadMaxima());
+			if(camino.getOperativa().equals(EnumOperativa.OPERATIVA)){
+				pstm.setString(5, "OPERATIVA");
+			}else if(camino.getOperativa().equals(EnumOperativa.NO_OPERATIVA)){
+				pstm.setString(5, "NO_OPERATIVA");
 			}
 
 			pstm.executeUpdate();
@@ -128,23 +129,24 @@ public class SucursalDao implements SucursalInterface{
 				ex.printStackTrace();
 			}
 		}
-		return sucursal;
+		return camino;
 	}
 
-	public Sucursal actualizar(Sucursal sucursal) {
+	public Camino actualizar(Camino camino) {
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("UPDATE sucursal SET nombre = ?, horarioApertura = ?, horariocierre = ?, operativa = ? WHERE id_sucursal = ?");
-			pstm.setString(1, sucursal.getNombre());
-			pstm.setInt(2, sucursal.getHorarioApertura());
-			pstm.setInt(3, sucursal.getHorarioCierre());
-			if(sucursal.getOperativa().equals(EnumOperativa.OPERATIVA)){
-				pstm.setString(4, "OPERATIVA");
-			}else if(sucursal.getOperativa().equals(EnumOperativa.NO_OPERATIVA)){
-				pstm.setString(4, "NO_OPERATIVA");
+			pstm = conn.prepareStatement("UPDATE camino SET sucursalOrigen = ?, sucursalDestino = ?, tiempoTransito = ?, capacidadMaxima = ?, operativa = ? WHERE id_camino = ?");
+			pstm.setInt(1,camino.getSucursalOrigen());
+			pstm.setInt(2, camino.getSucursalDestino());
+			pstm.setInt(3, camino.getTiempoTransito());
+            pstm.setInt(4, camino.getCapacidadMaxima());
+			if(camino.getOperativa().equals(EnumOperativa.OPERATIVA)){
+				pstm.setString(5, "OPERATIVA");
+			}else if(camino.getOperativa().equals(EnumOperativa.NO_OPERATIVA)){
+				pstm.setString(5, "NO_OPERATIVA");
 			}
-			pstm.setInt(5, sucursal.getId());
+			pstm.setInt(6, camino.getId());
 
 			pstm.executeUpdate();
 		} catch (SQLException ex) {
@@ -157,7 +159,6 @@ public class SucursalDao implements SucursalInterface{
 				e.printStackTrace();
 			}
 		}
-		return sucursal;
+		return camino;
 	}
-
 }

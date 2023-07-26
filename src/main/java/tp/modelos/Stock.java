@@ -2,15 +2,15 @@ package tp.modelos;
 
 public class Stock {
 	private Integer id;
-	private Sucursal sucursal;
-	private Producto producto;
+	private Integer sucursal;
+	private Integer producto;
 	private Integer stock;
 	
 	public Stock() {
 		
 	}
 
-	public Stock(Sucursal sucursal, Producto producto, Integer stock) {
+	public Stock(Integer sucursal, Integer producto, Integer stock) {
 		super();
 		this.sucursal = sucursal;
 		this.producto = producto;
@@ -25,19 +25,19 @@ public class Stock {
 		this.id = id;
 	}
 
-	public Sucursal getSucursal() {
+	public Integer getSucursal() {
 		return sucursal;
 	}
 
-	public void setSucursal(Sucursal sucursal) {
+	public void setSucursal(Integer sucursal) {
 		this.sucursal = sucursal;
 	}
 
-	public Producto getProducto() {
+	public Integer getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(Integer producto) {
 		this.producto = producto;
 	}
 

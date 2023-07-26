@@ -2,8 +2,8 @@ package tp.modelos;
 
 public class Camino {
 	private Integer id;
-	private Sucursal sucursalOrigen;
-	private Sucursal sucursalDestino;
+	private Integer sucursalOrigen;
+	private Integer sucursalDestino;
 	private Integer tiempoTransito;
 	private Integer capacidadMaxima;
 	private EnumOperativa operativa;
@@ -12,7 +12,7 @@ public class Camino {
 		
 	}
 
-	public Camino(Integer id, Sucursal sucursalOrigen, Sucursal sucursalDestino, Integer tiempoTransito,
+	public Camino(Integer id, Integer sucursalOrigen, Integer sucursalDestino, Integer tiempoTransito,
 			Integer capacidadMaxima, EnumOperativa operativa) {
 		super();
 		this.id = id;
@@ -31,19 +31,19 @@ public class Camino {
 		this.id = id;
 	}
 
-	public Sucursal getSucursalOrigen() {
+	public Integer getSucursalOrigen() {
 		return sucursalOrigen;
 	}
 
-	public void setSucursalOrigen(Sucursal sucursalOrigen) {
+	public void setSucursalOrigen(Integer sucursalOrigen) {
 		this.sucursalOrigen = sucursalOrigen;
 	}
 
-	public Sucursal getSucursalDestino() {
+	public Integer getSucursalDestino() {
 		return sucursalDestino;
 	}
 
-	public void setSucursalDestino(Sucursal sucursalDestino) {
+	public void setSucursalDestino(Integer sucursalDestino) {
 		this.sucursalDestino = sucursalDestino;
 	}
 

@@ -1,18 +1,18 @@
 package tp.modelos;
 
-import java.time.Instant;
+import java.sql.Date;
 
 public class OrdenProvision {
 	private Integer id;
-	private Instant fecha;
-	private Sucursal sucursalDestino;
+	private Date fecha;
+	private Integer sucursalDestino;
 	private Integer plazoMaximo;
 	private EnumEstado estado;
 	
 	public OrdenProvision() {	
 	}
 
-	public OrdenProvision(Instant fecha, Sucursal sucursalDestino, Integer plazoMaximo, EnumEstado estado) {
+	public OrdenProvision(Date fecha, Integer sucursalDestino, Integer plazoMaximo, EnumEstado estado) {
 		super();
 		this.fecha = fecha;
 		this.sucursalDestino = sucursalDestino;
@@ -28,19 +28,19 @@ public class OrdenProvision {
 		this.id = id;
 	}
 
-	public Instant getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Instant fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
-	public Sucursal getSucursalDestino() {
+	public Integer getSucursalDestino() {
 		return sucursalDestino;
 	}
 
-	public void setSucursalDestino(Sucursal sucursalDestino) {
+	public void setSucursalDestino(Integer sucursalDestino) {
 		this.sucursalDestino = sucursalDestino;
 	}
 

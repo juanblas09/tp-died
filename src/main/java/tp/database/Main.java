@@ -15,10 +15,10 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) throws SQLException {
 		SucursalInterface suc = new SucursalDao();
-		Sucursal sucursal = new Sucursal(1, "Sgo del Estero", 6, 12, EnumOperativa.NO_OPERATIVA);
+		Sucursal sucursal = new Sucursal(4, "Monte Vera", 6, 12, EnumOperativa.NO_OPERATIVA);
 		//suc.guardar(sucursal);
-		//suc.borrar(2);
-		//System.out.println(suc.buscarPorID(84).getNombre());
+		//suc.borrar(4);
+		//System.out.println(suc.buscarPorID(4).getNombre());
 		 /*
 		List<Sucursal> sucs = suc.buscarTodos();
 		

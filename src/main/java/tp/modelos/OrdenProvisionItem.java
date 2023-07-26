@@ -2,15 +2,15 @@ package tp.modelos;
 
 public class OrdenProvisionItem {
 	private Integer id;
-	private OrdenProvision orden;
+	private Integer orden;
 	private Integer cantidad;
-	private Producto producto;
+	private Integer producto;
 	
 	public OrdenProvisionItem() {
 		
 	}
 
-	public OrdenProvisionItem(OrdenProvision orden, Integer cantidad, Producto producto) {
+	public OrdenProvisionItem(Integer orden, Integer cantidad, Integer producto) {
 		super();
 		this.orden = orden;
 		this.cantidad = cantidad;
@@ -25,11 +25,11 @@ public class OrdenProvisionItem {
 		this.id = id;
 	}
 
-	public OrdenProvision getOrden() {
+	public Integer getOrden() {
 		return orden;
 	}
 
-	public void setOrden(OrdenProvision orden) {
+	public void setOrden(Integer orden) {
 		this.orden = orden;
 	}
 
@@ -41,11 +41,11 @@ public class OrdenProvisionItem {
 		this.cantidad = cantidad;
 	}
 
-	public Producto getProducto() {
+	public Integer getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(Integer producto) {
 		this.producto = producto;
 	}
 	

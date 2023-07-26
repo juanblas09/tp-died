@@ -7,26 +7,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.database.interfaces.ProductoInterface;
-import tp.modelos.Producto;
+import tp.modelos.Stock;
 
-public class ProductoDao implements ProductoInterface{
-    
-	public Producto buscarPorID(Integer id) {
-		Producto resultado = new Producto();
+public class StockDao {
+    public Stock buscarPorID(Integer id) {
+		Stock resultado = new Stock();
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-			pstm = conn.prepareStatement("SELECT * FROM producto WHERE id_producto = ?");
+			pstm = conn.prepareStatement("SELECT * FROM stock WHERE id_stock = ?");
 			pstm.setInt(1, id);
 			rs = pstm.executeQuery();
 			if(rs.next()){
-				resultado.setId(rs.getInt("id_producto"));
-				resultado.setNombre(rs.getString("nombre"));
-				resultado.setDescripcion(rs.getString("descripcion"));
-                resultado.setPrecioUnitario(rs.getInt("precioUnitario"));
-                resultado.setPeso(rs.getDouble("peso"));
+				resultado.setId(rs.getInt("id_stock"));
+				resultado.setStock(rs.getInt("stock"));
+				resultado.setProducto(rs.getInt("id_producto"));
+                resultado.setSucursal(rs.getInt("id_sucursal"));
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -46,7 +43,7 @@ public class ProductoDao implements ProductoInterface{
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("DELETE FROM producto WHERE id_producto = ?");
+			pstm = conn.prepareStatement("DELETE FROM stock WHERE id_stock = ?");
 			pstm.setInt(1,id);
 
 			pstm.executeUpdate();
@@ -62,21 +59,20 @@ public class ProductoDao implements ProductoInterface{
 		}
 	}
 
-	public List<Producto> buscarTodos() {
-		List<Producto> resultado = new ArrayList<Producto>();
+	public List<Stock> buscarTodos() {
+		List<Stock> resultado = new ArrayList<Stock>();
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-			pstm = conn.prepareStatement("SELECT * FROM producto");
+			pstm = conn.prepareStatement("SELECT * FROM stock");
 			rs = pstm.executeQuery();
 			while(rs.next()){
-				Producto p = new Producto();
-				p.setId(rs.getInt("id_producto"));
-				p.setNombre(rs.getString("nombre"));
-				p.setDescripcion(rs.getString("descripcion"));
-				p.setPrecioUnitario(rs.getInt("precioUnitario"));
-                p.setPeso(rs.getDouble("peso"));
+				Stock p = new Stock();
+				p.setId(rs.getInt("id_stock"));
+				p.setStock(rs.getInt("stock"));
+				p.setProducto(rs.getInt("id_producto"));
+                p.setSucursal(rs.getInt("id_sucursal"));
 
 				resultado.add(p);
 			}
@@ -95,15 +91,14 @@ public class ProductoDao implements ProductoInterface{
 		return resultado;
 	}
 
-	public Producto guardar(Producto producto) {
+	public Stock guardar(Stock stock) {
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("INSERT INTO producto (nombre, descripcion, precioUnitario, peso) VALUES (?, ?, ?, ?)");
-			pstm.setString(1,producto.getNombre());
-			pstm.setString(2, producto.getDescripcion());
-			pstm.setInt(3, producto.getPrecioUnitario());
-			pstm.setDouble(4, producto.getPeso());
+			pstm = conn.prepareStatement("INSERT INTO stock (stock, id_producto, id_sucursal) VALUES (?, ?, ?)");
+			pstm.setInt(1, stock.getStock());
+            pstm.setInt(2, stock.getProducto());
+            pstm.setInt(3, stock.getSucursal());
 
 			pstm.executeUpdate();
 		} catch (SQLException ex) {
@@ -116,19 +111,18 @@ public class ProductoDao implements ProductoInterface{
 				ex.printStackTrace();
 			}
 		}
-		return producto;
+		return stock;
 	}
 
-	public Producto actualizar(Producto producto) {
+	public Stock actualizar(Stock stock) {
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("UPDATE producto SET nombre = ?, descripcion = ?, precioUnitario = ?, peso = ? WHERE id_producto = ?");
-			pstm.setString(1, producto.getNombre());
-			pstm.setString(2, producto.getDescripcion());
-			pstm.setInt(3, producto.getPrecioUnitario());
-            pstm.setDouble(4, producto.getPeso());
-			pstm.setInt(5, producto.getId());
+			pstm = conn.prepareStatement("UPDATE stock SET stock = ?, id_producto = ?, id_sucursal = ? WHERE id_stock = ?");
+			pstm.setInt(1, stock.getStock());
+            pstm.setInt(2, stock.getProducto());
+            pstm.setInt(3, stock.getSucursal());
+			pstm.setInt(4, stock.getId());
 
 			pstm.executeUpdate();
 		} catch (SQLException ex) {
@@ -141,6 +135,6 @@ public class ProductoDao implements ProductoInterface{
 				e.printStackTrace();
 			}
 		}
-		return producto;
+		return stock;
 	}
 }

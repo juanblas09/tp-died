@@ -7,26 +7,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.database.interfaces.ProductoInterface;
-import tp.modelos.Producto;
+import tp.modelos.OrdenProvisionItem;
 
-public class ProductoDao implements ProductoInterface{
-    
-	public Producto buscarPorID(Integer id) {
-		Producto resultado = new Producto();
+public class OrdenProvisionItemDao {
+    public OrdenProvisionItem buscarPorID(Integer id) {
+		OrdenProvisionItem resultado = new OrdenProvisionItem();
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-			pstm = conn.prepareStatement("SELECT * FROM producto WHERE id_producto = ?");
+			pstm = conn.prepareStatement("SELECT * FROM ordenProvisionItem WHERE id_orden = ?");
 			pstm.setInt(1, id);
 			rs = pstm.executeQuery();
 			if(rs.next()){
-				resultado.setId(rs.getInt("id_producto"));
-				resultado.setNombre(rs.getString("nombre"));
-				resultado.setDescripcion(rs.getString("descripcion"));
-                resultado.setPrecioUnitario(rs.getInt("precioUnitario"));
-                resultado.setPeso(rs.getDouble("peso"));
+				resultado.setId(rs.getInt("id_orden"));
+				resultado.setOrden(rs.getInt("orden"));
+				resultado.setCantidad(rs.getInt("cantidad"));
+                resultado.setProducto(rs.getInt("producto"));
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -46,7 +43,7 @@ public class ProductoDao implements ProductoInterface{
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("DELETE FROM producto WHERE id_producto = ?");
+			pstm = conn.prepareStatement("DELETE FROM ordenProvisionItem WHERE id_orden = ?");
 			pstm.setInt(1,id);
 
 			pstm.executeUpdate();
@@ -62,21 +59,20 @@ public class ProductoDao implements ProductoInterface{
 		}
 	}
 
-	public List<Producto> buscarTodos() {
-		List<Producto> resultado = new ArrayList<Producto>();
+	public List<OrdenProvisionItem> buscarTodos() {
+		List<OrdenProvisionItem> resultado = new ArrayList<OrdenProvisionItem>();
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		try {
-			pstm = conn.prepareStatement("SELECT * FROM producto");
+			pstm = conn.prepareStatement("SELECT * FROM ordenProvisionItem");
 			rs = pstm.executeQuery();
 			while(rs.next()){
-				Producto p = new Producto();
-				p.setId(rs.getInt("id_producto"));
-				p.setNombre(rs.getString("nombre"));
-				p.setDescripcion(rs.getString("descripcion"));
-				p.setPrecioUnitario(rs.getInt("precioUnitario"));
-                p.setPeso(rs.getDouble("peso"));
+				OrdenProvisionItem p = new OrdenProvisionItem();
+				p.setId(rs.getInt("id_orden"));
+				p.setOrden(rs.getInt("orden"));
+				p.setCantidad(rs.getInt("cantidad"));
+                p.setProducto(rs.getInt("producto"));
 
 				resultado.add(p);
 			}
@@ -95,15 +91,14 @@ public class ProductoDao implements ProductoInterface{
 		return resultado;
 	}
 
-	public Producto guardar(Producto producto) {
+	public OrdenProvisionItem guardar(OrdenProvisionItem orden) {
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("INSERT INTO producto (nombre, descripcion, precioUnitario, peso) VALUES (?, ?, ?, ?)");
-			pstm.setString(1,producto.getNombre());
-			pstm.setString(2, producto.getDescripcion());
-			pstm.setInt(3, producto.getPrecioUnitario());
-			pstm.setDouble(4, producto.getPeso());
+			pstm = conn.prepareStatement("INSERT INTO ordenProvisionItem (orden, cantidad, producto) VALUES (?, ?, ?)");
+			pstm.setInt(1, orden.getOrden());
+            pstm.setInt(2, orden.getCantidad());
+            pstm.setInt(3, orden.getProducto());
 
 			pstm.executeUpdate();
 		} catch (SQLException ex) {
@@ -116,19 +111,18 @@ public class ProductoDao implements ProductoInterface{
 				ex.printStackTrace();
 			}
 		}
-		return producto;
+		return orden;
 	}
 
-	public Producto actualizar(Producto producto) {
+	public OrdenProvisionItem actualizar(OrdenProvisionItem orden) {
 		Connection conn = Conexion.crearConexion();
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement("UPDATE producto SET nombre = ?, descripcion = ?, precioUnitario = ?, peso = ? WHERE id_producto = ?");
-			pstm.setString(1, producto.getNombre());
-			pstm.setString(2, producto.getDescripcion());
-			pstm.setInt(3, producto.getPrecioUnitario());
-            pstm.setDouble(4, producto.getPeso());
-			pstm.setInt(5, producto.getId());
+			pstm = conn.prepareStatement("UPDATE ordenProvisionItem SET orden = ?, cantidad = ?, producto = ? WHERE id_orden = ?");
+			pstm.setInt(1, orden.getOrden());
+            pstm.setInt(2, orden.getCantidad());
+            pstm.setInt(3, orden.getProducto());
+			pstm.setInt(4, orden.getId());
 
 			pstm.executeUpdate();
 		} catch (SQLException ex) {
@@ -141,6 +135,6 @@ public class ProductoDao implements ProductoInterface{
 				e.printStackTrace();
 			}
 		}
-		return producto;
+		return orden;
 	}
 }
