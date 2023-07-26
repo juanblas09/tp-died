@@ -1,6 +1,6 @@
 --Creacion de tablas
 CREATE TABLE sucursal (
-    id_sucursal INTEGER CONSTRAINT pk_sucursal PRIMARY KEY,
+    id_sucursal INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_sucursal PRIMARY KEY,
     nombre VARCHAR,
     horarioApertura INTEGER,
     horarioCierre INTEGER,
@@ -8,7 +8,7 @@ CREATE TABLE sucursal (
 );
 
 CREATE TABLE producto (
-    id_producto INTEGER CONSTRAINT pk_producto PRIMARY KEY,
+    id_producto INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_producto PRIMARY KEY,
     nombre VARCHAR,
     descripcion VARCHAR,
     precioUnitario INTEGER,
@@ -16,7 +16,7 @@ CREATE TABLE producto (
 );
 
 CREATE TABLE camino(
-    id_camino INTEGER CONSTRAINT pk_camino PRIMARY KEY,
+    id_camino INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_camino PRIMARY KEY,
     sucursalOrigen INTEGER,
     sucursalDestino INTEGER,
     tiempoTransito INTEGER,
@@ -25,7 +25,7 @@ CREATE TABLE camino(
 );
 
 CREATE TABLE ordenProvision(
-    id_orden INTEGER CONSTRAINT pk_orden PRIMARY KEY,
+    id_orden INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_orden PRIMARY KEY,
     fecha DATE,
     sucursalDestino INTEGER,
     plazoMaximo INTEGER,
@@ -33,14 +33,14 @@ CREATE TABLE ordenProvision(
 );
 
 CREATE TABLE ordenProvisionItem(
-    id_orden INTEGER CONSTRAINT pk_orden PRIMARY KEY,
+    id_orden INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_ordenitem PRIMARY KEY,
     orden INTEGER,
     cantidad INTEGER,
     producto INTEGER
 );
 
 CREATE TABLE stock(
-    id_stock INTEGER CONSTRAINT pk_id PRIMARY KEY,
+    id_stock INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_id PRIMARY KEY,
     stock INTEGER
 );
 

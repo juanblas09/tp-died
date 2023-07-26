@@ -11,9 +11,8 @@ public class Producto {
 		
 	}
 	
-	public Producto(Integer id, String nombre, String descripcion, Integer precioUnitario, Double peso) {
+	public Producto(String nombre, String descripcion, Integer precioUnitario, Double peso) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precioUnitario = precioUnitario;

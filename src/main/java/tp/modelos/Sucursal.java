@@ -11,6 +11,15 @@ public class Sucursal {
 		super();
 	}
 	
+	public Sucursal(String nombre, Integer horarioApertura, Integer horarioCierre,
+			EnumOperativa operativa) {
+		super();
+		this.nombre = nombre;
+		this.horarioApertura = horarioApertura;
+		this.horarioCierre = horarioCierre;
+		this.operativa = operativa;
+	}
+
 	public Sucursal(Integer id, String nombre, Integer horarioApertura, Integer horarioCierre,
 			EnumOperativa operativa) {
 		super();

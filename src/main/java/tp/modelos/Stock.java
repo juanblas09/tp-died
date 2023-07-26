@@ -1,6 +1,7 @@
 package tp.modelos;
 
 public class Stock {
+	private Integer id;
 	private Sucursal sucursal;
 	private Producto producto;
 	private Integer stock;
@@ -14,6 +15,14 @@ public class Stock {
 		this.sucursal = sucursal;
 		this.producto = producto;
 		this.stock = stock;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Sucursal getSucursal() {

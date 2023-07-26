@@ -10,9 +10,8 @@ public class OrdenProvisionItem {
 		
 	}
 
-	public OrdenProvisionItem(Integer id, OrdenProvision orden, Integer cantidad, Producto producto) {
+	public OrdenProvisionItem(OrdenProvision orden, Integer cantidad, Producto producto) {
 		super();
-		this.id = id;
 		this.orden = orden;
 		this.cantidad = cantidad;
 		this.producto = producto;

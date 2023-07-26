@@ -12,9 +12,8 @@ public class OrdenProvision {
 	public OrdenProvision() {	
 	}
 
-	public OrdenProvision(Integer id, Instant fecha, Sucursal sucursalDestino, Integer plazoMaximo, EnumEstado estado) {
+	public OrdenProvision(Instant fecha, Sucursal sucursalDestino, Integer plazoMaximo, EnumEstado estado) {
 		super();
-		this.id = id;
 		this.fecha = fecha;
 		this.sucursalDestino = sucursalDestino;
 		this.plazoMaximo = plazoMaximo;
