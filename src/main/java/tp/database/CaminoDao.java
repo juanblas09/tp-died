@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp.modelos.EnumOperativa;
+import tp.database.interfaces.CaminoInterface;
 import tp.modelos.Camino;
 
-public class CaminoDao {
+public class CaminoDao implements CaminoInterface{
     public Camino buscarPorID(Integer id) {
 		Camino resultado = new Camino();
 		Connection conn = Conexion.crearConexion();
