@@ -23,6 +23,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
+import javax.swing.JTree;
 
 
 public class PantallaPrincipal extends JFrame {
@@ -75,6 +76,19 @@ public class PantallaPrincipal extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Camino");
 		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenu mnNewMenu_2 = new JMenu("Editar");
+		menuBar.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Sucursal");
+		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EditarSucursal es = new EditarSucursal();
+				es.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem);
 		
 		JMenu mnNewMenu_1 = new JMenu("Generar");
 		menuBar.add(mnNewMenu_1);

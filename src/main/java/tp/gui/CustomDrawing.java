@@ -44,6 +44,7 @@ public class CustomDrawing extends JPanel {
 				
 			}
 			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				super.mouseReleased(e);
@@ -51,6 +52,7 @@ public class CustomDrawing extends JPanel {
 		});
 	}
 	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
