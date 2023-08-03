@@ -22,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Toolkit;
 import javax.swing.JTree;
 
@@ -90,6 +92,19 @@ public class PantallaPrincipal extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem);
 		
+		JMenu mnNewMenu_3 = new JMenu("Eliminar");
+		menuBar.add(mnNewMenu_3);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Sucursal");
+		mntmNewMenuItem_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EliminarSucursal es = new EliminarSucursal();
+				es.setVisible(true);
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_5);
+		
 		JMenu mnNewMenu_1 = new JMenu("Generar");
 		menuBar.add(mnNewMenu_1);
 		
@@ -121,16 +136,56 @@ public class PantallaPrincipal extends JFrame {
 		
 		/*
 		 * Desarrollo de grafo
+		 
+		 CustomDrawing mapa = new CustomDrawing();
+		 mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		 mapa.setBackground(new Color(255, 255, 255));
+		 mapa.setBounds(10, 211, 524, 317);
+		 contentPane.add(mapa);
+		 mapa.setLayout(null);
 		 * */
 		
-		CustomDrawing mapa = new CustomDrawing();
+		GrafoGUI mapa = new GrafoGUI();
 		mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		mapa.setBackground(new Color(255, 255, 255));
 		mapa.setBounds(10, 211, 524, 317);
 		contentPane.add(mapa);
 		mapa.setLayout(null);
-		
-		
+		int x = 50;
+		int y = 50;
+		int radio = 50;
+		List<String> lst1 = new ArrayList<>();
+        List<String> lst3 = new ArrayList<>();
+        List<List<String>> lst2 = new ArrayList<>();
+        lst1.add("A");
+        lst1.add("B");
+        lst1.add("C");
+        lst1.add("D");
+
+        lst3.add("A");
+        lst3.add("B");
+
+        lst2.add(new ArrayList<>(lst3));
+
+        lst3.remove("A");
+        lst3.add("C");
+
+        lst2.add(new ArrayList<>(lst3));
+
+        lst3.remove("B");
+        lst3.add("D");
+
+        lst2.add(new ArrayList<>(lst3));
+
+        for(String sth : lst1){
+            mapa.addNodo(x, y, radio, sth);
+            x += 50;
+            y += 50;
+        }
+
+        for(List<String> sth : lst2){
+            mapa.addArista(sth.get(0), sth.get(1));
+        }
 		
 		
 

@@ -24,12 +24,9 @@ import tp.modelos.Sucursal;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EditarSucursal extends JFrame {
+public class EliminarSucursal extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textNombre;
-	private JTextField textApertura;
-	private JTextField textCierre;
 	SucursalInterface si = new SucursalDao();
 	int idSeleccionada;
 	
@@ -40,7 +37,7 @@ public class EditarSucursal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditarSucursal frame = new EditarSucursal();
+					EliminarSucursal frame = new EliminarSucursal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,10 +49,10 @@ public class EditarSucursal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EditarSucursal() {
+	public EliminarSucursal() {
 
-		setTitle("Editar Sucursal");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(NuevaSucursal.class.getResource("/tp/gui/img/edit.png")));
+		setTitle("Eliminar Sucursal");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EliminarSucursal.class.getResource("/tp/gui/img/delete.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
@@ -67,53 +64,12 @@ public class EditarSucursal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textNombre = new JTextField();
-		textNombre.setBounds(174, 44, 250, 20);
-		contentPane.add(textNombre);
-		textNombre.setColumns(10);
-		
-		textApertura = new JTextField();
-		textApertura.setColumns(10);
-		textApertura.setBounds(174, 75, 250, 20);
-		contentPane.add(textApertura);
-		
-		textCierre = new JTextField();
-		textCierre.setColumns(10);
-		textCierre.setBounds(174, 106, 250, 20);
-		contentPane.add(textCierre);
-		
-		JLabel lblNewLabel = new JLabel("Nombre");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(10, 47, 154, 14);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblHorarioDeApertura = new JLabel("Horario de apertura (hh)");
-		lblHorarioDeApertura.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblHorarioDeApertura.setBounds(10, 78, 154, 14);
-		contentPane.add(lblHorarioDeApertura);
-		
-		JLabel lblHorarioDeCierre = new JLabel("Horario de cierre (hh)");
-		lblHorarioDeCierre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblHorarioDeCierre.setBounds(10, 109, 154, 14);
-		contentPane.add(lblHorarioDeCierre);
-		
-		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEstado.setBounds(10, 140, 154, 14);
-		contentPane.add(lblEstado);
-		
-		final JComboBox<EnumOperativa> comboEstado = new JComboBox<>();
-		comboEstado.setModel(new DefaultComboBoxModel<>(EnumOperativa.values()));
-		comboEstado.setBounds(174, 137, 250, 22);
-		contentPane.add(comboEstado);
-		
 		JButton btnNewButton = new JButton("Aceptar");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				SucursalInterface si = new SucursalDao();
-				Sucursal s = new Sucursal(idSeleccionada,textNombre.getText(),Integer.parseInt(textApertura.getText()),Integer.parseInt(textCierre.getText()),(EnumOperativa)comboEstado.getSelectedItem());
-				si.actualizar(s);
+				si.borrar(idSeleccionada);
 				dispose();
 			}
 		});
@@ -139,14 +95,11 @@ public class EditarSucursal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Sucursal objetoSeleccionado = (Sucursal) comboBox.getSelectedItem();
                 if (objetoSeleccionado != null) {
-					textNombre.setText(objetoSeleccionado.getNombre());
-					textApertura.setText(String.valueOf(objetoSeleccionado.getHorarioApertura()));
-					textCierre.setText(String.valueOf(objetoSeleccionado.getHorarioCierre()));
 					idSeleccionada = objetoSeleccionado.getId();
                 }
 			}
 		});
-		comboBox.setBounds(174, 11, 250, 22);
+		comboBox.setBounds(174, 92, 250, 22);
 		contentPane.add(comboBox);
 
 		/*
@@ -155,7 +108,7 @@ public class EditarSucursal extends JFrame {
 		
 		JLabel lblSeleccionarSucursal = new JLabel("Seleccionar sucursal");
 		lblSeleccionarSucursal.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSeleccionarSucursal.setBounds(10, 15, 154, 14);
+		lblSeleccionarSucursal.setBounds(10, 96, 154, 14);
 		contentPane.add(lblSeleccionarSucursal);
 	}
 }

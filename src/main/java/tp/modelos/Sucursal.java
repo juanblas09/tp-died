@@ -69,6 +69,11 @@ public class Sucursal {
 	public void setOperativa(EnumOperativa operativa) {
 		this.operativa = operativa;
 	}
+
+	@Override
+    public String toString() {
+        return nombre;
+    }
 	
 	public void alta() {
 		
