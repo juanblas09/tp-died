@@ -85,6 +85,13 @@ public class PantallaPrincipal extends JFrame {
 		mnNewMenu.add(nuevaSucursalMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Camino");
+		mntmNewMenuItem_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				NuevaCamino nc = new NuevaCamino();
+				nc.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenu mnNewMenu_2 = new JMenu("Editar");
@@ -99,6 +106,16 @@ public class PantallaPrincipal extends JFrame {
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Camino");
+		mntmNewMenuItem_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EditarCamino ec = new EditarCamino();
+				ec.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_7);
 		
 		JMenu mnNewMenu_3 = new JMenu("Eliminar");
 		menuBar.add(mnNewMenu_3);
@@ -142,19 +159,6 @@ public class PantallaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_1.setBounds(405, 11, 369, 189);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setToolTipText("");
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(10, 11, 385, 189);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
 		/*
 		 * Desarrollo de grafo
 		 * */
@@ -162,7 +166,7 @@ public class PantallaPrincipal extends JFrame {
 		GrafoGUI mapa = new GrafoGUI();
 		mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		mapa.setBackground(new Color(255, 255, 255));
-		mapa.setBounds(10, 211, 524, 317);
+		mapa.setBounds(10, 11, 524, 517);
 		contentPane.add(mapa);
 		mapa.setLayout(null);
 		int x = 50;
@@ -195,7 +199,7 @@ public class PantallaPrincipal extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_3.setToolTipText("");
-		panel_3.setBounds(544, 211, 230, 317);
+		panel_3.setBounds(544, 11, 230, 517);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 	}

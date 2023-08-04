@@ -1,5 +1,9 @@
 package tp.modelos;
 
+import tp.database.SucursalDao;
+import tp.database.interfaces.SucursalInterface;
+
+
 public class Camino {
 	private Integer id;
 	private Integer sucursalOrigen;
@@ -10,6 +14,16 @@ public class Camino {
 	
 	public Camino() {
 		
+	}
+	
+	public Camino(Integer sucursalOrigen, Integer sucursalDestino, Integer tiempoTransito,
+			Integer capacidadMaxima, EnumOperativa operativa) {
+		super();
+		this.sucursalOrigen = sucursalOrigen;
+		this.sucursalDestino = sucursalDestino;
+		this.tiempoTransito = tiempoTransito;
+		this.capacidadMaxima = capacidadMaxima;
+		this.operativa = operativa;
 	}
 
 	public Camino(Integer id, Integer sucursalOrigen, Integer sucursalDestino, Integer tiempoTransito,
@@ -69,6 +83,12 @@ public class Camino {
 
 	public void setOperativa(EnumOperativa operativa) {
 		this.operativa = operativa;
+	}
+	
+	@Override
+	public String toString() {
+		SucursalInterface si = new SucursalDao();		
+		return si.buscarPorID(sucursalOrigen).getNombre() + " -> " + si.buscarPorID(sucursalDestino).getNombre();
 	}
 
 	
