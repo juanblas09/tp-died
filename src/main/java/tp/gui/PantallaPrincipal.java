@@ -12,6 +12,14 @@ import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+
+import tp.database.SucursalDao;
+import tp.database.interfaces.SucursalInterface;
+import tp.database.CaminoDao;
+import tp.database.interfaces.CaminoInterface;
+import tp.modelos.Sucursal;
+import tp.modelos.Camino;
+
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JToolBar;
@@ -105,6 +113,19 @@ public class PantallaPrincipal extends JFrame {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_5);
 		
+		JMenu mnNewMenu_4 = new JMenu("Buscar");
+		menuBar.add(mnNewMenu_4);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Sucursal");
+		mntmNewMenuItem_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				BuscarSucursal bs = new BuscarSucursal();
+				bs.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_6);
+		
 		JMenu mnNewMenu_1 = new JMenu("Generar");
 		menuBar.add(mnNewMenu_1);
 		
@@ -136,13 +157,6 @@ public class PantallaPrincipal extends JFrame {
 		
 		/*
 		 * Desarrollo de grafo
-		 
-		 CustomDrawing mapa = new CustomDrawing();
-		 mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		 mapa.setBackground(new Color(255, 255, 255));
-		 mapa.setBounds(10, 211, 524, 317);
-		 contentPane.add(mapa);
-		 mapa.setLayout(null);
 		 * */
 		
 		GrafoGUI mapa = new GrafoGUI();
@@ -154,37 +168,21 @@ public class PantallaPrincipal extends JFrame {
 		int x = 50;
 		int y = 50;
 		int radio = 50;
-		List<String> lst1 = new ArrayList<>();
-        List<String> lst3 = new ArrayList<>();
-        List<List<String>> lst2 = new ArrayList<>();
-        lst1.add("A");
-        lst1.add("B");
-        lst1.add("C");
-        lst1.add("D");
-
-        lst3.add("A");
-        lst3.add("B");
-
-        lst2.add(new ArrayList<>(lst3));
-
-        lst3.remove("A");
-        lst3.add("C");
-
-        lst2.add(new ArrayList<>(lst3));
-
-        lst3.remove("B");
-        lst3.add("D");
-
-        lst2.add(new ArrayList<>(lst3));
-
-        for(String sth : lst1){
-            mapa.addNodo(x, y, radio, sth);
+		
+		SucursalInterface si = new SucursalDao();
+		List<Sucursal> sucursales = si.buscarTodos();
+		
+		for(Sucursal s: sucursales){
+            mapa.addNodo(x, y, radio, s.getNombre());
             x += 50;
             y += 50;
         }
+		
+		CaminoInterface ci = new CaminoDao();
+		List<Camino> caminos = ci.buscarTodos();
 
-        for(List<String> sth : lst2){
-            mapa.addArista(sth.get(0), sth.get(1));
+        for(Camino c: caminos){
+            mapa.addArista(si.buscarPorID(c.getSucursalOrigen()).getNombre(),si.buscarPorID(c.getSucursalDestino()).getNombre());
         }
 		
 		
