@@ -34,12 +34,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Toolkit;
 import javax.swing.JTree;
+import javax.swing.border.TitledBorder;
+import javax.swing.JButton;
 
 
 public class PantallaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	
+	GrafoGUI mapa = new GrafoGUI();
+	int x = 50;
+	int y = 50;
+	int radio = 50;
 
 	/**
 	 * Launch the application.
@@ -130,6 +137,16 @@ public class PantallaPrincipal extends JFrame {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_5);
 		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Camino");
+		mntmNewMenuItem_8.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EliminarCamino ec = new EliminarCamino();
+				ec.setVisible(true);
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_8);
+		
 		JMenu mnNewMenu_4 = new JMenu("Buscar");
 		menuBar.add(mnNewMenu_4);
 		
@@ -142,6 +159,16 @@ public class PantallaPrincipal extends JFrame {
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_6);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Camino");
+		mntmNewMenuItem_9.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				BuscarCamino bc = new BuscarCamino();
+				bc.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_9);
 		
 		JMenu mnNewMenu_1 = new JMenu("Generar");
 		menuBar.add(mnNewMenu_1);
@@ -163,15 +190,17 @@ public class PantallaPrincipal extends JFrame {
 		 * Desarrollo de grafo
 		 * */
 		
-		GrafoGUI mapa = new GrafoGUI();
+		//GrafoGUI mapa = new GrafoGUI();
 		mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		mapa.setBackground(new Color(255, 255, 255));
 		mapa.setBounds(10, 11, 524, 517);
 		contentPane.add(mapa);
 		mapa.setLayout(null);
-		int x = 50;
-		int y = 50;
-		int radio = 50;
+		//int x = 50;
+		//int y = 50;
+		//int radio = 50;
+		
+		
 		
 		SucursalInterface si = new SucursalDao();
 		List<Sucursal> sucursales = si.buscarTodos();
@@ -197,10 +226,38 @@ public class PantallaPrincipal extends JFrame {
 		 * */
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_3.setBorder(new TitledBorder(null, "Detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.setToolTipText("");
-		panel_3.setBounds(544, 11, 230, 517);
+		panel_3.setBounds(544, 39, 230, 489);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Recargar");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dibujarNodos();
+			}
+		});
+		btnNewButton.setBounds(544, 11, 89, 23);
+		contentPane.add(btnNewButton);
+	}
+	
+	public void dibujarNodos() {
+		SucursalInterface si = new SucursalDao();
+		List<Sucursal> sucursales = si.buscarTodos();
+		
+		for(Sucursal s: sucursales){
+            mapa.addNodo(x, y, radio, s.getNombre());
+            x += 50;
+            y += 50;
+        }
+		
+		CaminoInterface ci = new CaminoDao();
+		List<Camino> caminos = ci.buscarTodos();
+
+        for(Camino c: caminos){
+            mapa.addArista(si.buscarPorID(c.getSucursalOrigen()).getNombre(),si.buscarPorID(c.getSucursalDestino()).getNombre());
+        }
 	}
 }
