@@ -101,6 +101,16 @@ public class PantallaPrincipal extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
+		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Producto");
+		mntmNewMenuItem_10.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				NuevaProducto np = new NuevaProducto();
+				np.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_10);
+		
 		JMenu mnNewMenu_2 = new JMenu("Editar");
 		menuBar.add(mnNewMenu_2);
 		
@@ -123,6 +133,16 @@ public class PantallaPrincipal extends JFrame {
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_7);
+		
+		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Producto");
+		mnNewMenu_2.add(mntmNewMenuItem_12);
+		mntmNewMenuItem_12.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EditarProducto ep = new EditarProducto();
+				ep.setVisible(true);
+			}
+		});
 		
 		JMenu mnNewMenu_3 = new JMenu("Eliminar");
 		menuBar.add(mnNewMenu_3);
@@ -147,6 +167,16 @@ public class PantallaPrincipal extends JFrame {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_8);
 		
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Producto");
+		mnNewMenu_3.add(mntmNewMenuItem_11);
+		mntmNewMenuItem_11.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EliminarProducto ep = new EliminarProducto();
+				ep.setVisible(true);
+			}
+		});
+		
 		JMenu mnNewMenu_4 = new JMenu("Buscar");
 		menuBar.add(mnNewMenu_4);
 		
@@ -169,6 +199,16 @@ public class PantallaPrincipal extends JFrame {
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_9);
+		
+		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Producto");
+		mntmNewMenuItem_13.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				BuscarProducto bp = new BuscarProducto();
+				bp.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_13);
 		
 		JMenu mnNewMenu_1 = new JMenu("Generar");
 		menuBar.add(mnNewMenu_1);

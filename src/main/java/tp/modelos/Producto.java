@@ -18,6 +18,15 @@ public class Producto {
 		this.precioUnitario = precioUnitario;
 		this.peso = peso;
 	}
+	
+	public Producto(Integer id, String nombre, String descripcion, Integer precioUnitario, Double peso) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precioUnitario = precioUnitario;
+		this.peso = peso;
+	}
 
 	public Integer getId() {
 		return id;
@@ -59,5 +68,8 @@ public class Producto {
 		this.peso = peso;
 	}
 	
+	public String toString() {
+		return nombre;
+	}
 	
 }
