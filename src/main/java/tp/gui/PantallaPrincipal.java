@@ -36,6 +36,7 @@ import java.awt.Toolkit;
 import javax.swing.JTree;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 
 public class PantallaPrincipal extends JFrame {
@@ -79,6 +80,7 @@ public class PantallaPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Nuevo");
+		mnNewMenu.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/tp/gui/img/add.png")));
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem nuevaSucursalMenuItem = new JMenuItem("Sucursal");
@@ -112,6 +114,7 @@ public class PantallaPrincipal extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_10);
 		
 		JMenu mnNewMenu_2 = new JMenu("Editar");
+		mnNewMenu_2.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/tp/gui/img/edit.png")));
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Sucursal");
@@ -136,6 +139,16 @@ public class PantallaPrincipal extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Producto");
 		mnNewMenu_2.add(mntmNewMenuItem_12);
+		
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Stock");
+		mntmNewMenuItem_14.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				EditarStock es = new EditarStock();
+				es.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_14);
 		mntmNewMenuItem_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -145,6 +158,7 @@ public class PantallaPrincipal extends JFrame {
 		});
 		
 		JMenu mnNewMenu_3 = new JMenu("Eliminar");
+		mnNewMenu_3.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/tp/gui/img/delete.png")));
 		menuBar.add(mnNewMenu_3);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Sucursal");
@@ -178,6 +192,7 @@ public class PantallaPrincipal extends JFrame {
 		});
 		
 		JMenu mnNewMenu_4 = new JMenu("Buscar");
+		mnNewMenu_4.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/tp/gui/img/search.png")));
 		menuBar.add(mnNewMenu_4);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Sucursal");
@@ -211,6 +226,7 @@ public class PantallaPrincipal extends JFrame {
 		mnNewMenu_4.add(mntmNewMenuItem_13);
 		
 		JMenu mnNewMenu_1 = new JMenu("Generar");
+		mnNewMenu_1.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/tp/gui/img/truck.png")));
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Orden Provision");
@@ -233,7 +249,7 @@ public class PantallaPrincipal extends JFrame {
 		//GrafoGUI mapa = new GrafoGUI();
 		mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		mapa.setBackground(new Color(255, 255, 255));
-		mapa.setBounds(10, 11, 524, 517);
+		mapa.setBounds(10, 11, 524, 485);
 		contentPane.add(mapa);
 		mapa.setLayout(null);
 		//int x = 50;
@@ -268,7 +284,7 @@ public class PantallaPrincipal extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.setToolTipText("");
-		panel_3.setBounds(544, 39, 230, 489);
+		panel_3.setBounds(544, 39, 230, 457);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 		

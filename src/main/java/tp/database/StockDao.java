@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp.database.interfaces.StockInterface;
 import tp.modelos.Stock;
 
-public class StockDao {
+public class StockDao implements StockInterface{
     public Stock buscarPorID(Integer id) {
 		Stock resultado = new Stock();
 		Connection conn = Conexion.crearConexion();
@@ -137,4 +138,73 @@ public class StockDao {
 		}
 		return stock;
 	}
+	
+	public Integer getStock(Integer idSuc, Integer idPro) {
+		Integer resultado = 0;
+		Connection conn = Conexion.crearConexion();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			pstm = conn.prepareStatement("SELECT * FROM stock WHERE id_sucursal = ? AND id_producto = ?");
+			pstm.setInt(1, idSuc);
+			pstm.setInt(2, idPro);
+			rs = pstm.executeQuery();
+			if(rs.next()){
+				resultado = rs.getInt("stock");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstm!=null) pstm.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return resultado;
+	}
+	
+	public void crearOActualizarStock(Integer idSucursal, Integer idProducto, Integer nuevoStock) {
+	    Connection conn = Conexion.crearConexion();
+	    PreparedStatement pstm = null;
+	    
+	    try {
+	        // Verificar si la relación ya existe en la base de datos
+	        String consultaExistencia = "SELECT * FROM stock WHERE id_sucursal = ? AND id_producto = ?";
+	        pstm = conn.prepareStatement(consultaExistencia);
+	        pstm.setInt(1, idSucursal);
+	        pstm.setInt(2, idProducto);
+	        ResultSet rs = pstm.executeQuery();
+	        
+	        if (rs.next()) {
+	            // Si la relación existe, actualiza el stock
+	            Integer idStock = rs.getInt("id_stock");
+	            String consultaActualizar = "UPDATE stock SET stock = ? WHERE id_stock = ?";
+	            pstm = conn.prepareStatement(consultaActualizar);
+	            pstm.setInt(1, nuevoStock);
+	            pstm.setInt(2, idStock);
+	            pstm.executeUpdate();
+	        } else {
+	            // Si la relación no existe, crea un nuevo registro
+	            String consultaInsertar = "INSERT INTO stock (stock, id_producto, id_sucursal) VALUES (?, ?, ?)";
+	            pstm = conn.prepareStatement(consultaInsertar);
+	            pstm.setInt(1, nuevoStock);
+	            pstm.setInt(2, idProducto);
+	            pstm.setInt(3, idSucursal);
+	            pstm.executeUpdate();
+	        }
+	    } catch (SQLException ex) {
+	        ex.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstm != null) pstm.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	}
+
 }
