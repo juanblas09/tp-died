@@ -430,4 +430,16 @@ public class GrafoGUI extends JPanel {
             this.circulo = circulo;
         }
     }
+    
+    public void limpiarCanvas() {
+        // Limpia todos los nodos y aristas del grafo
+        grafo.getNodos().clear();
+        grafo.getAristas().clear();
+        
+        // Limpia la selección actual
+        selectedCircle = null;
+        
+        // Repinta el canvas
+        repaint();
+    }
 }

@@ -292,6 +292,9 @@ public class PantallaPrincipal extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				mapa.limpiarCanvas();
+				x = 50;
+				y = 50;
 				dibujarNodos();
 			}
 		});
