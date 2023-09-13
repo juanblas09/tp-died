@@ -8,6 +8,8 @@ public interface OrdenProvisionInterface {
     public OrdenProvision buscarPorID(Integer id);
 	public void borrar(Integer id);
 	public List<OrdenProvision> buscarTodos();
+	public List<OrdenProvision> buscarTodosPendientes();
 	public OrdenProvision guardar(OrdenProvision ordenProvision);
 	public OrdenProvision actualizar(OrdenProvision ordenProvision);
+	public int crearOrdenProvisionVacia();
 }

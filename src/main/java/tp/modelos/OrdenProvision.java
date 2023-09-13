@@ -1,6 +1,6 @@
 package tp.modelos;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class OrdenProvision {
 	private Integer id;
@@ -12,6 +12,15 @@ public class OrdenProvision {
 	public OrdenProvision() {	
 	}
 
+	public OrdenProvision(Integer id, Date fecha, Integer sucursalDestino, Integer plazoMaximo, EnumEstado estado) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.sucursalDestino = sucursalDestino;
+		this.plazoMaximo = plazoMaximo;
+		this.estado = estado;
+	}
+	
 	public OrdenProvision(Date fecha, Integer sucursalDestino, Integer plazoMaximo, EnumEstado estado) {
 		super();
 		this.fecha = fecha;

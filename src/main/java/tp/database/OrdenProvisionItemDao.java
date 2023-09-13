@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp.database.interfaces.OrdenProvisionItemInterface;
 import tp.modelos.OrdenProvisionItem;
 
-public class OrdenProvisionItemDao {
+public class OrdenProvisionItemDao implements OrdenProvisionItemInterface {
     public OrdenProvisionItem buscarPorID(Integer id) {
 		OrdenProvisionItem resultado = new OrdenProvisionItem();
 		Connection conn = Conexion.crearConexion();

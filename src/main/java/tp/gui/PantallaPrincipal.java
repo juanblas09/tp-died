@@ -225,12 +225,22 @@ public class PantallaPrincipal extends JFrame {
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_13);
 		
-		JMenu mnNewMenu_1 = new JMenu("Generar");
+		JMenu mnNewMenu_1 = new JMenu("Otros");
 		mnNewMenu_1.setIcon(new ImageIcon(PantallaPrincipal.class.getResource("/tp/gui/img/truck.png")));
 		menuBar.add(mnNewMenu_1);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Orden Provision");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Generar Orden Provision");
+		mntmNewMenuItem_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				GenerarOrdenProvision gop = new GenerarOrdenProvision();
+				gop.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Consultar Ordenes Pendientes");
+		mnNewMenu_1.add(mntmNewMenuItem_15);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Page Rank");
 		mnNewMenu_1.add(mntmNewMenuItem_3);
