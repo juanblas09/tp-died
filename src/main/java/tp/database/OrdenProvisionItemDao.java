@@ -91,6 +91,39 @@ public class OrdenProvisionItemDao implements OrdenProvisionItemInterface {
 		System.out.println("Resultado " + resultado);
 		return resultado;
 	}
+	
+	public List<OrdenProvisionItem> buscarTodosPorOrden(Integer id) {
+		List<OrdenProvisionItem> resultado = new ArrayList<OrdenProvisionItem>();
+		Connection conn = Conexion.crearConexion();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			pstm = conn.prepareStatement("SELECT * FROM ordenProvisionItem WHERE orden = ?");
+			pstm.setInt(1, id);
+			rs = pstm.executeQuery();
+			while(rs.next()){
+				OrdenProvisionItem p = new OrdenProvisionItem();
+				p.setId(rs.getInt("id_orden"));
+				p.setOrden(rs.getInt("orden"));
+				p.setCantidad(rs.getInt("cantidad"));
+                p.setProducto(rs.getInt("producto"));
+
+				resultado.add(p);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstm!=null) pstm.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		System.out.println("Resultado " + resultado);
+		return resultado;
+	}
 
 	public OrdenProvisionItem guardar(OrdenProvisionItem orden) {
 		Connection conn = Conexion.crearConexion();

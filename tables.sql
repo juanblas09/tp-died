@@ -44,7 +44,13 @@ CREATE TABLE stock(
     stock INTEGER
 );
 
+CREATE TABLE recorrido(
+    id_recorrido INTEGER GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_id PRIMARY KEY,
+    recorrido VARCHAR
+);
+
 --Creacion FK
+
 ALTER TABLE
     stock
 ADD
@@ -55,6 +61,11 @@ ALTER TABLE
 ADD
     COLUMN id_producto INTEGER;
 
+ALTER TABLE
+	recorrido
+ADD
+	COLUMN id_orden INTEGER;
+    
 ALTER TABLE
     stock
 ADD
@@ -89,3 +100,8 @@ ALTER TABLE
     ordenProvisionItem
 ADD
     CONSTRAINT fk_producto FOREIGN KEY (producto) REFERENCES producto(id_producto);
+
+ALTER TABLE
+    recorrido
+ADD
+    CONSTRAINT fk_orden FOREIGN KEY (id_orden) REFERENCES ordenProvision(id_orden);

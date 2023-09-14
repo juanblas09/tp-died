@@ -20,6 +20,7 @@ import tp.database.interfaces.CaminoInterface;
 import tp.modelos.Sucursal;
 import tp.modelos.Camino;
 
+import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JToolBar;
@@ -41,14 +42,6 @@ import javax.swing.ImageIcon;
 
 public class PantallaPrincipal extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField textField;
-	
-	GrafoGUI mapa = new GrafoGUI();
-	int x = 50;
-	int y = 50;
-	int radio = 50;
-
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +61,15 @@ public class PantallaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	private JPanel contentPane;
+	private JTextField textField;
+	GrafoGUI mapa = new GrafoGUI();
+	int x = 30;
+	int y = 30;
+	int radio = 40;
 	public PantallaPrincipal() {
+		FlatDraculaIJTheme.setup();
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaPrincipal.class.getResource("/tp/gui/img/truck.png")));
 		setTitle("Sistema Logistico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -240,6 +241,13 @@ public class PantallaPrincipal extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Consultar Ordenes Pendientes");
+		mntmNewMenuItem_15.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				AsignarRecorrido ar = new AsignarRecorrido();
+				ar.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_15);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Page Rank");
@@ -255,6 +263,27 @@ public class PantallaPrincipal extends JFrame {
 		/*
 		 * Desarrollo de grafo
 		 * */
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "Detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setToolTipText("");
+		panel_3.setBounds(544, 39, 230, 457);
+		contentPane.add(panel_3);
+		panel_3.setLayout(null);
+
+		JLabel lblSucursal = new JLabel("Sucursal:");
+		lblSucursal.setBounds(10, 24, 210, 14);
+		panel_3.add(lblSucursal);
+
+		mapa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(mapa.getSelectedCircle()!=null) {
+					lblSucursal.setText("Sucursal: " + mapa.getSelectedCircle().getLabel());
+				} else {
+					lblSucursal.setText("Sucursal: ");
+				}
+			}
+		});
 		
 		//GrafoGUI mapa = new GrafoGUI();
 		mapa.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -273,8 +302,8 @@ public class PantallaPrincipal extends JFrame {
 		
 		for(Sucursal s: sucursales){
             mapa.addNodo(x, y, radio, s.getNombre());
-            x += 50;
-            y += 50;
+            x += 30;
+            y += 30;
         }
 		
 		CaminoInterface ci = new CaminoDao();
@@ -291,20 +320,15 @@ public class PantallaPrincipal extends JFrame {
 		 * 
 		 * */
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_3.setToolTipText("");
-		panel_3.setBounds(544, 39, 230, 457);
-		contentPane.add(panel_3);
-		panel_3.setLayout(null);
+		
 		
 		JButton btnNewButton = new JButton("Recargar");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mapa.limpiarCanvas();
-				x = 50;
-				y = 50;
+				x = 30;
+				y = 30;
 				dibujarNodos();
 			}
 		});
@@ -318,8 +342,9 @@ public class PantallaPrincipal extends JFrame {
 		
 		for(Sucursal s: sucursales){
             mapa.addNodo(x, y, radio, s.getNombre());
-            x += 50;
-            y += 50;
+            x += 40;
+            y += 40;
+            
         }
 		
 		CaminoInterface ci = new CaminoDao();

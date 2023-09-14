@@ -244,7 +244,7 @@ public class GrafoGUI extends JPanel {
 
 
     // Clase Circle
-    private class Circle {
+    public class Circle {
         private int x;
         private int y;
         private int diameter;
@@ -441,5 +441,12 @@ public class GrafoGUI extends JPanel {
         
         // Repinta el canvas
         repaint();
+    }
+    
+    public Circle getSelectedCircle() {
+    	if(selectedCircle!=null) {
+    		return selectedCircle;
+    	}
+    	return null;
     }
 }

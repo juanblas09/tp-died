@@ -69,6 +69,8 @@ public class OrdenProvision {
 		this.estado = estado;
 	}
 	
-	
+	public String toString() {
+		return "Orden nº" + id.toString() + " - " + fecha.toString() + " - Destino: " + sucursalDestino.toString();
+	}
 	
 }
